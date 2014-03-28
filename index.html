@@ -210,7 +210,9 @@
                             realMonth: _realGet,
                             realYear: _realGet * _mo,
                             salaryMonth: salary,
-                            salaryYear: salary * _mo
+                            salaryYear: salary * _mo,
+                            taxRate: _tax + '%',
+                            taxOff: _off
                         },
                         NTD: {
                             taxMonth: (_taxTotal * 5) / _mo,
@@ -218,7 +220,9 @@
                             realMonth: _realGet * 5,
                             realYear: _realGet * 5 * _mo,
                             salaryMonth: salary * 5,
-                            salaryYear: salary * 5 * _mo
+                            salaryYear: salary * 5 * _mo,
+                            taxRate: _tax + '%',
+                            taxOff: _off * 5
                         }
                     };
                 },
