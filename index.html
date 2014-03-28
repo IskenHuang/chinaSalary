@@ -1,0 +1,254 @@
+<!doctype html>
+<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]><html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]><html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <!--[if IE]>
+            <meta http-equiv="Pragma" content="no-cache">
+            <meta http-equiv="Expires" content="-1">
+        <![endif]-->
+        <title>計算中國薪資稅率</title>
+        <meta name="description" content="計算中國薪資稅率">
+        <meta name="viewport" content="width=device-width">
+        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+        <meta name="keywords" content="薪資,大陸,中國,稅率">
+        <meta property="og:title" content="計算中國薪資稅率">
+        <meta property="og:url" content="">
+        <meta property="og:image" content="">
+        <meta property="og:description" content="計算中國薪資稅率">
+        <meta property="og:site_name" content="計算中國薪資稅率">
+        <meta property="og:type" content="product">
+
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+
+        <!-- BOODSTRAP -->
+        <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootswatch/3.1.1/cosmo/bootstrap.min.css">
+
+
+        <link rel="stylesheet/less" type="text/css" href="styles/main.less" />
+        <script type="text/javascript">
+        less = {
+            env: 'development',
+            async: false,
+            fileAsync: false,
+            poll: 1000,
+            functions: {},
+            dumpLineNumbers: 'comments',
+            relativeUrls: false,
+            rootpath: '/styles'
+          };
+        </script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/1.7.0/less.min.js"></script>
+
+        <!--[if lt IE 9]>
+            <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+    </head>
+    <body>
+        <nav class="navbar navbar-default" role="navigation">
+            <div class="container-fluid">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <!-- <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button> -->
+                    <a class="navbar-brand" href="#">計算中國薪資稅率</a>
+                </div>
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <!-- <li class="active"><a href="#">Link</a></li> -->
+                    </ul>
+                </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
+        </nav>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="input-group">
+                        <span class="input-group-addon">每月薪資（RMB 稅前）</span>
+                        <input type="number" class="form-control js-salary" value="10000">
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon">一年幾個月</span>
+                        <input type="number" class="form-control js-month" value="12">
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h4>台幣</h4>
+                            <ul class="list-group js-ntd">
+                                <li class="list-group-item">稅前（月）：<span class="js-salary-withtax-month"></span></li>
+                                <li class="list-group-item">稅前（年）：<span class="js-salary-withtax-year"></span></li>
+                                <li class="list-group-item">稅（月）：<span class="js-tax-month"></span></li>
+                                <li class="list-group-item">稅（年）：<span class="js-tax-year"></span></li>
+                                <li class="list-group-item">稅後（月）：<span class="js-salary-withouttax-month"></span></li>
+                                <li class="list-group-item">稅後（年）：<span class="js-salary-withouttax-year"></span></li>
+                            </ul>
+                        </div>
+                        <div class="col-md-12">
+                            <h4>人民幣</h4>
+                            <ul class="list-group js-rmb">
+                                <li class="list-group-item">稅前（月）：<span class="js-salary-withtax-month"></span></li>
+                                <li class="list-group-item">稅前（年）：<span class="js-salary-withtax-year"></span></li>
+                                <li class="list-group-item">稅（月）：<span class="js-tax-month"></span></li>
+                                <li class="list-group-item">稅（年）：<span class="js-tax-year"></span></li>
+                                <li class="list-group-item">稅後（月）：<span class="js-salary-withouttax-month"></span></li>
+                                <li class="list-group-item">稅後（年）：<span class="js-salary-withouttax-year"></span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--[if lt IE 9]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script type="text/javascript" src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+        <script>
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+            ga('create', 'UA-3392989-5', 'iskenhuang.github.io');
+            ga('send', 'pageview');
+        </script>
+        <script type="text/javascript">
+            $(function(){
+                // http://40era.com/2641/
+                var calTW = function(salary, mo) {
+                    var range = {
+                            r1: {
+                                off: 0,
+                                tax: 3,
+                                range: 1500
+                            },
+                            r2: {
+                                off: 105,
+                                tax: 10,
+                                range: 4500
+                            },
+                            r3: {
+                                off: 555,
+                                tax: 20,
+                                range: 9000
+                            },
+                            r4: {
+                                off: 1005,
+                                tax: 25,
+                                range: 35000
+                            },
+                            r5: {
+                                off: 2755,
+                                tax: 30,
+                                range: 55000
+                            },
+                            r6: {
+                                off: 5505,
+                                tax: 35,
+                                range: 80000
+                            },
+                            r7: {
+                                off: 13505,
+                                tax: 45,
+                                range: 80001
+                            }
+                        },
+                        basic = 4800,
+                        _off = 0,
+                        _tax = 0,
+                        _taxTotal = 0,
+                        _realGet = 0,
+                        _mo = mo || 12;
+
+                    if(salary < range.r1.range) {
+                        _off = range.r1.off;
+                        _tax = range.r1.tax;
+                    }else if(salary < range.r2.range) {
+                        _off = range.r2.off;
+                        _tax = range.r2.tax;
+                    }else if(salary < range.r3.range) {
+                        _off = range.r3.off;
+                        _tax = range.r3.tax;
+                    }else if(salary < range.r4.range) {
+                        _off = range.r4.off;
+                        _tax = range.r4.tax;
+                    }else if(salary < range.r5.range) {
+                        _off = range.r5.off;
+                        _tax = range.r5.tax;
+                    }else if(salary < range.r6.range){
+                        _off = range.r6.off;
+                        _tax = range.r6.tax;
+                    }else{
+                        _off = range.r7.off;
+                        _tax = range.r7.tax;
+                    }
+
+                    _taxTotal = (( salary - basic ) * (_tax / 100) ) - _off;
+                    _realGet = salary - _taxTotal;
+
+                    // console.log('TAX(mo) RMB = ', _taxTotal, ' | NTD = ', _taxTotal * 5);
+                    // console.log('REAL(mo) RMB = ', _realGet, ' | NTD = ', _realGet * 5);
+                    // console.log('REAL(year=', _mo, ') RMB = ', _realGet * _mo, ' | NTD = ', _realGet * 5 * _mo);
+
+                    return {
+                        RMB: {
+                            taxMonth: _taxTotal / _mo,
+                            taxYear: _taxTotal,
+                            realMonth: _realGet,
+                            realYear: _realGet * _mo,
+                            salaryMonth: salary,
+                            salaryYear: salary * _mo
+                        },
+                        NTD: {
+                            taxMonth: (_taxTotal * 5) / _mo,
+                            taxYear: _taxTotal * 5,
+                            realMonth: _realGet * 5,
+                            realYear: _realGet * 5 * _mo,
+                            salaryMonth: salary * 5,
+                            salaryYear: salary * 5 * _mo
+                        }
+                    };
+                },
+                setResult = function($el, obj) {
+                    $el.find('.js-salary-withtax-month').text(obj.salaryMonth);
+                    $el.find('.js-salary-withtax-year').text(obj.salaryYear);
+                    $el.find('.js-tax-month').text(obj.taxMonth);
+                    $el.find('.js-tax-year').text(obj.taxYear);
+                    $el.find('.js-salary-withouttax-month').text(obj.realMonth);
+                    $el.find('.js-salary-withouttax-year').text(obj.realYear);
+                },
+                cal = function() {
+                    var _obj = calTW($salary.val(), $month.val());
+
+                    setResult($NTD, _obj.NTD);
+                    setResult($RMB, _obj.RMB);
+                },
+                $salary = $('.js-salary'),
+                $month = $('.js-month'),
+                $inputs = $('.js-salary,.js-month'),
+                $NTD = $('.js-ntd'),
+                $RMB = $('.js-rmb');
+
+
+                $inputs.on('change', function(){
+                    cal();
+                });
+
+                cal();
+            });
+        </script>
+    </body>
+</html>
