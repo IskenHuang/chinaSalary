@@ -91,6 +91,8 @@
                                 <li class="list-group-item">稅前（年）：<span class="js-salary-withtax-year"></span></li>
                                 <li class="list-group-item">稅（月）：<span class="js-tax-month"></span></li>
                                 <li class="list-group-item">稅（年）：<span class="js-tax-year"></span></li>
+                                <li class="list-group-item">稅率：<span class="js-tax-rate"></span></li>
+                                <li class="list-group-item">稅減免：<span class="js-tax-off"></span></li>
                                 <li class="list-group-item">稅後（月）：<span class="js-salary-withouttax-month"></span></li>
                                 <li class="list-group-item">稅後（年）：<span class="js-salary-withouttax-year"></span></li>
                             </ul>
@@ -102,6 +104,8 @@
                                 <li class="list-group-item">稅前（年）：<span class="js-salary-withtax-year"></span></li>
                                 <li class="list-group-item">稅（月）：<span class="js-tax-month"></span></li>
                                 <li class="list-group-item">稅（年）：<span class="js-tax-year"></span></li>
+                                <li class="list-group-item">稅率：<span class="js-tax-rate"></span></li>
+                                <li class="list-group-item">稅減免：<span class="js-tax-off"></span></li>
                                 <li class="list-group-item">稅後（月）：<span class="js-salary-withouttax-month"></span></li>
                                 <li class="list-group-item">稅後（年）：<span class="js-salary-withouttax-year"></span></li>
                             </ul>
@@ -231,6 +235,8 @@
                     $el.find('.js-salary-withtax-year').text(obj.salaryYear);
                     $el.find('.js-tax-month').text(obj.taxMonth);
                     $el.find('.js-tax-year').text(obj.taxYear);
+                    $el.find('.js-tax-rate').text(obj.taxRate);
+                    $el.find('.js-tax-off').text(obj.taxOff);
                     $el.find('.js-salary-withouttax-month').text(obj.realMonth);
                     $el.find('.js-salary-withouttax-year').text(obj.realYear);
                 },
