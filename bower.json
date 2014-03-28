@@ -1,0 +1,11 @@
+{
+  "name": "chinaSalary",
+  "version": "1.0.0",
+  "dependencies": {
+  },
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "components"
+  ]
+}
