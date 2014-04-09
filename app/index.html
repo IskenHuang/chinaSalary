@@ -81,6 +81,10 @@
                         <span class="input-group-addon">一年幾個月</span>
                         <input type="number" class="form-control js-month" value="12">
                     </div>
+                    <div class="input-group">
+                        <span class="input-group-addon">當前匯率（from <a href="http://finance.yahoo.com/currency-converter/#from=CNY;to=TWD;amt=1">Yahoo finance</a>)</span>
+                        <input type="number" class="form-control js-rate" value="5">
+                    </div>
                 </div>
                 <div class="col-md-8">
                     <div class="row">
@@ -132,7 +136,7 @@
         <script type="text/javascript">
             $(function(){
                 // https://gist.github.com/IskenHuang/9318189
-                var calTW = function(salary, mo) {
+                var calTW = function(salary, mo, rate) {
                     var range = {
                             r1: {
                                 off: 0,
@@ -175,7 +179,8 @@
                         _tax = 0,
                         _taxTotal = 0,
                         _realGet = 0,
-                        _mo = mo || 12;
+                        _mo = mo || 12,
+                        _rate = rate || 5;
 
                     if(salary < range.r1.range) {
                         _off = range.r1.off;
@@ -219,14 +224,14 @@
                             taxOff: _off
                         },
                         NTD: {
-                            taxMonth: (_taxTotal * 5) / _mo,
-                            taxYear: _taxTotal * 5,
-                            realMonth: _realGet * 5,
-                            realYear: _realGet * 5 * _mo,
-                            salaryMonth: salary * 5,
-                            salaryYear: salary * 5 * _mo,
+                            taxMonth: (_taxTotal * _rate) / _mo,
+                            taxYear: _taxTotal * _rate,
+                            realMonth: _realGet * _rate,
+                            realYear: _realGet * _rate * _mo,
+                            salaryMonth: salary * _rate,
+                            salaryYear: salary * _rate * _mo,
                             taxRate: _tax + '%',
-                            taxOff: _off * 5
+                            taxOff: _off * _rate
                         }
                     };
                 },
@@ -241,23 +246,47 @@
                     $el.find('.js-salary-withouttax-year').text(obj.realYear);
                 },
                 cal = function() {
-                    var _obj = calTW($salary.val(), $month.val());
+                    var _obj = calTW($salary.val(), $month.val(), $rate.val());
 
                     setResult($NTD, _obj.NTD);
                     setResult($RMB, _obj.RMB);
+                },
+                getCurrency = function() {
+                    // Thanks Yahoo
+                    // http://finance.yahoo.com/currency-converter/#from=CNY;to=TWD;amt=1
+                    var yUrl = 'http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.xchange%20where%20pair%20in%20(%22CNYTWD%22)&format=json&env=store://datatables.org/alltableswithkeys',
+                        deferred = $.Deferred();
+
+                    $.ajax({
+                        url: yUrl,
+                        method: 'GET'
+                    }).then(function(res){
+                        var rate = res.query.results.rate.Ask || '0';
+                        rate = parseFloat(rate, 10);
+                        deferred.resolve(rate);
+                    }).fail(function(e){
+                        deferred.reject(e);
+                    });
+
+                    return deferred.promise();
                 },
                 $salary = $('.js-salary'),
                 $month = $('.js-month'),
                 $inputs = $('.js-salary,.js-month'),
                 $NTD = $('.js-ntd'),
-                $RMB = $('.js-rmb');
+                $RMB = $('.js-rmb'),
+                $rate = $('.js-rate');
 
 
                 $inputs.on('change', function(){
                     cal();
                 });
 
-                cal();
+
+                getCurrency().then(function(r) {
+                    $rate.val(r);
+                    cal();
+                });
             });
         </script>
     </body>
