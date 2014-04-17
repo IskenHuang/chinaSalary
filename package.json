@@ -4,7 +4,7 @@
   "dependencies": {},
   "devDependencies": {
     "bower": "~1.2.8",
-    "gulp": "~3.5.0",
+    "gulp": "~3.6.0",
     "gulp-util": "~2.2.9",
     "gulp-autoprefixer": "~0.0.6",
     "gulp-csso": "~0.2.3",
