@@ -284,10 +284,14 @@
                 });
 
 
-                getCurrency().then(function(r) {
-                    $rate.val(r);
-                    cal();
-                });
+                getCurrency()
+                    .then(function(r) {
+                        $rate.val(r);
+                        cal();
+                    })
+                    .fail(function(e){
+                        cal();
+                    });
             });
         </script>
     </body>

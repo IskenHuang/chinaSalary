@@ -123,8 +123,7 @@
             <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
         <![endif]-->
 
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-        <script type="text/javascript" src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+        <script src="//g.tbcdn.cn/kissy/k/1.4.3/seed-min.js"></script>
         <script>
             (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
             (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -135,7 +134,7 @@
             ga('send', 'pageview');
         </script>
         <script type="text/javascript">
-            $(function(){
+            KISSY.use('node, io, promise', function(S){
                 // https://gist.github.com/IskenHuang/9318189
                 var calTW = function(salary, mo, rate) {
                     var range = {
@@ -237,14 +236,14 @@
                     };
                 },
                 setResult = function($el, obj) {
-                    $el.find('.js-salary-withtax-month').text(obj.salaryMonth);
-                    $el.find('.js-salary-withtax-year').text(obj.salaryYear);
-                    $el.find('.js-tax-month').text(obj.taxMonth);
-                    $el.find('.js-tax-year').text(obj.taxYear);
-                    $el.find('.js-tax-rate').text(obj.taxRate);
-                    $el.find('.js-tax-off').text(obj.taxOff);
-                    $el.find('.js-salary-withouttax-month').text(obj.realMonth);
-                    $el.find('.js-salary-withouttax-year').text(obj.realYear);
+                    $el.one('.js-salary-withtax-month').text(obj.salaryMonth);
+                    $el.one('.js-salary-withtax-year').text(obj.salaryYear);
+                    $el.one('.js-tax-month').text(obj.taxMonth);
+                    $el.one('.js-tax-year').text(obj.taxYear);
+                    $el.one('.js-tax-rate').text(obj.taxRate);
+                    $el.one('.js-tax-off').text(obj.taxOff);
+                    $el.one('.js-salary-withouttax-month').text(obj.realMonth);
+                    $el.one('.js-salary-withouttax-year').text(obj.realYear);
                 },
                 cal = function() {
                     var _obj = calTW($salary.val(), $month.val(), $rate.val());
@@ -256,40 +255,46 @@
                     // Thanks Yahoo
                     // http://finance.yahoo.com/currency-converter/#from=CNY;to=TWD;amt=1
                     var yUrl = 'http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.xchange%20where%20pair%20in%20(%22CNYTWD%22)&format=json&env=store://datatables.org/alltableswithkeys',
-                        deferred = $.Deferred();
+                        deferred = new S.Promise.Defer();
 
-                    $.ajax({
+                    S.IO({
+                        type: 'GET',
                         url: yUrl,
-                        method: 'GET'
-                    }).then(function(res){
-                        var rate = res.query.results.rate.Ask || '0';
-                        rate = parseFloat(rate, 10);
-                        deferred.resolve(rate);
-                    }).fail(function(e){
-                        deferred.reject(e);
+                        success: function(res) {
+                            console.log('res = ', typeof(res), res);
+                            var rate = res.query.results.rate.Ask || '0';
+                            rate = parseFloat(rate, 10);
+                            deferred.resolve(rate);
+                        },
+                        error: function(e) {
+                            console.log('e = ', e);
+                            deferred.reject(e);
+                        },
+                        headers: {
+                            'X-Requested-With': false
+                        },
                     });
 
-                    return deferred.promise();
+                    return deferred.promise;
                 },
-                $salary = $('.js-salary'),
-                $month = $('.js-month'),
-                $inputs = $('.js-salary,.js-month'),
-                $NTD = $('.js-ntd'),
-                $RMB = $('.js-rmb'),
-                $rate = $('.js-rate');
+                $salary = S.all('.js-salary'),
+                $month = S.all('.js-month'),
+                $inputs = S.all('.js-salary,.js-month'),
+                $NTD = S.all('.js-ntd'),
+                $RMB = S.all('.js-rmb'),
+                $rate = S.all('.js-rate');
 
 
-                $inputs.on('change', function(){
+                $inputs.on('valuechange', function(){
                     cal();
                 });
-
 
                 getCurrency()
                     .then(function(r) {
                         $rate.val(r);
                         cal();
                     })
-                    .fail(function(e){
+                    .fail(function(){
                         cal();
                     });
             });
