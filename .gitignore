@@ -12,9 +12,3 @@ Icon?
 npm-debug.log
 node_modules
 *.swp
-
-
-# -----------------------------------
-# Bower
-# -----------------------------------
-bower_components
