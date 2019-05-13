@@ -1,2 +1,2 @@
 # 計算中國薪資稅率
-http://iskenhuang.github.io/chinaSalary/
+https://iskenhuang.github.io/lab/china-salary/
